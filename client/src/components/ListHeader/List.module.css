@@ -1,0 +1,21 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 10px 8px;
+  background-color: #e8eaed;
+  color: #404246;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.box_price {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.change_percent {
+  display: flex;
+  align-items: center;
+}

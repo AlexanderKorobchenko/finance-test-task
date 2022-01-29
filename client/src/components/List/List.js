@@ -1,85 +1,32 @@
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import io from 'socket.io-client';
 
 import Item from '../Item';
+import ListHeader from '../ListHeader';
 import s from './List.module.css';
 
-const data = [
-  {
-    ticker: 'AAPL',
-    exchange: 'NASDAQ',
-    price: 279.29,
-    change: 64.52,
-    change_percent: 0.84,
-    dividend: 0.56,
-    yield: 1.34,
-    last_trade_time: '2021-04-30T11:53:21.000Z',
-  },
-  {
-    ticker: 'GOOGL',
-    exchange: 'NASDAQ',
-    price: 154.38,
-    change: 237.08,
-    change_percent: 0.1,
-    dividend: 0.46,
-    yield: 1.18,
-    last_trade_time: '2021-04-30T11:53:21.000Z',
-  },
-  {
-    ticker: 'MSFT',
-    exchange: 'NASDAQ',
-    price: 261.46,
-    change: 161.45,
-    change_percent: 0.41,
-    dividend: 0.18,
-    yield: 0.98,
-    last_trade_time: '2021-04-30T11:53:21.000Z',
-  },
-  {
-    ticker: 'AMZN',
-    exchange: 'NASDAQ',
-    price: 260.34,
-    change: 128.71,
-    change_percent: 0.6,
-    dividend: 0.07,
-    yield: 0.42,
-    last_trade_time: '2021-04-30T11:53:21.000Z',
-  },
-  {
-    ticker: 'FB',
-    exchange: 'NASDAQ',
-    price: 266.77,
-    change: 171.92,
-    change_percent: 0.75,
-    dividend: 0.52,
-    yield: 1.31,
-    last_trade_time: '2021-04-30T11:53:21.000Z',
-  },
-  {
-    ticker: 'TSLA',
-    exchange: 'NASDAQ',
-    price: 272.13,
-    change: 158.76,
-    change_percent: 0.1,
-    dividend: 0.96,
-    yield: 1.0,
-    last_trade_time: '2021-04-30T11:53:21.000Z',
-  },
-];
+const socket = io.connect('http://localhost:4000');
+socket.emit('start');
 
 function List() {
+  const [tickers, setTickers] = useState([]);
+
+  socket.on('ticker', function (response) {
+    setTickers(response);
+  });
+
+  // useEffect(() => {
+  //   return () => {
+  //     console.log(socket.disconnected);
+  //   };
+  // });
+
   return (
     <ul className={s.list}>
-      <li className={s.item} key={uuidv4()}>
-        <span className={s.name}>Name</span>
-        <div className={s.box_price}>
-          <span className={s.price}>Price</span>
-          <span className={s.change}>Change on</span>
-          <span className={s.change_percent}>Percent</span>
-        </div>
-      </li>
-
-      {data.map(el => (
-        <Item ticker={el} key={uuidv4()} />
+      <ListHeader />
+      {tickers.map(ticker => (
+        <Item ticker={ticker} key={uuidv4()} />
       ))}
     </ul>
   );
