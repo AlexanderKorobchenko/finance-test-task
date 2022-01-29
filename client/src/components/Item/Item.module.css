@@ -1,16 +1,14 @@
-.list {
-  margin: 0px;
-  padding: 0px;
-}
 .item {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
   padding: 10px 8px;
-  background-color: #e8eaed;
-  color: #404246;
+  border-top: 1px solid #e8eaed;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
+}
+.item:hover {
+  background-color: #f0f0f0;
 }
 
 .box_price {
