@@ -19,6 +19,7 @@ function utcDate() {
 
 function getQuotes(socket, tickers) {
   const quotes = tickers.map((ticker) => ({
+    id: ticker._id,
     index: ticker.index,
     name: ticker.name,
     price: randomValue(150, 250, 2),

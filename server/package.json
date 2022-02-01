@@ -4,13 +4,19 @@
   "description": "Push JSON prices in real-time over websockets",
   "main": "server.js",
   "dependencies": {
+    "@sendgrid/mail": "^7.6.0",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^14.3.2",
     "express": "^4.17.1",
+    "gravatar": "^1.8.2",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.8",
     "morgan": "^1.10.0",
-    "socket.io": "^4.0.1"
+    "socket.io": "^4.0.1",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "node ./bin/server.js",

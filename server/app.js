@@ -5,12 +5,15 @@ const cors = require("cors");
 const io = require("socket.io");
 
 const trackTickers = require("./helpers/createTickers");
+const { tickersRouter } = require("./routes/api");
+const usersRouter = require("./routes/api/users");
 const { Ticker } = require("./model");
-const { ROUTE_ADD } = process.env;
+const { authentication } = require("./middlewares");
 
 const app = express();
 const server = http.createServer(app);
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+const tickers = [];
 const socketServer = io(server, {
   cors: {
     origin: "*",
@@ -21,25 +24,29 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.get("/", async function (req, res, next) {
+app.get("/", async (req, res, next) => {
   try {
-    const tickers = await Ticker.find({});
-
-    socketServer.on("connection", (socket) => {
-      socket.on("start", () => {
-        trackTickers(socket, tickers);
-      });
-    });
-    res.sendFile(__dirname + "/index.html");
+    const data = await Ticker.find({});
+    tickers.length = 0;
+    data.forEach((el) => tickers.push(el));
+    res.status(200).json({ message: "Get all: success" });
   } catch (error) {
     next(error);
   }
 });
 
-app.post(`/${ROUTE_ADD}`, async (req, res, next) => {
+app.use("/api/users", usersRouter);
+app.use("/api/tickers", tickersRouter);
+
+app.get("/favorite", authentication, async (req, res, next) => {
   try {
-    const newTicker = await Ticker.create({ ...req.body });
-    res.status(201).json(newTicker);
+    const { _id } = req.user;
+    // console.log(_id);
+    const data = await Ticker.find({});
+    const filteredData = data.filter((el) => el.favorite.includes(_id));
+    tickers.length = 0;
+    filteredData.forEach((el) => tickers.push(el));
+    res.status(200).json({ message: "Get favorite: success" });
   } catch (error) {
     next(error);
   }
@@ -54,4 +61,10 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message });
 });
 
-module.exports = server;
+socketServer.on("connection", (socket) => {
+  socket.on("start", () => {
+    trackTickers(socket, tickers);
+  });
+});
+
+module.exports = { server };
