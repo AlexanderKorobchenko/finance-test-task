@@ -1,31 +1,29 @@
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import io from 'socket.io-client';
 
-import Item from '../Item';
+import tickersSelectors from '../../redux/tickers/tickers-selectors';
 import ListHeader from '../ListHeader';
+import Item from '../Item';
 import s from './List.module.css';
 
-const socket = io.connect('http://localhost:4000');
-socket.emit('start');
-
 function List() {
-  const [tickers, setTickers] = useState([]);
+  const tickers = useSelector(tickersSelectors.getTickers);
+  const filter = useSelector(tickersSelectors.getFilter);
 
-  socket.on('ticker', function (response) {
-    setTickers(response);
-  });
-
-  // useEffect(() => {
-  //   return () => {
-  //     console.log(socket.disconnected);
-  //   };
-  // });
+  function filtration(value) {
+    if (value === '') {
+      return tickers;
+    } else {
+      return tickers.filter(ticker => {
+        return ticker.index.toLocaleLowerCase().includes(value);
+      });
+    }
+  }
 
   return (
     <ul className={s.list}>
       <ListHeader />
-      {tickers.map(ticker => (
+      {filtration(filter).map(ticker => (
         <Item ticker={ticker} key={uuidv4()} />
       ))}
     </ul>

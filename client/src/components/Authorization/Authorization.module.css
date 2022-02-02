@@ -1,0 +1,33 @@
+.link {
+  text-decoration: none;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding: 4px 6px;
+  color: #aaa;
+  outline: none;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.link:hover {
+  color: #498ef2;
+}
+.current {
+  text-decoration: none;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding: 4px 6px;
+  color: #498ef2;
+  outline: none;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.text {
+  margin-left: 6px;
+}
+.container {
+  display: flex;
+}

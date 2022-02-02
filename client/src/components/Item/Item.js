@@ -7,7 +7,8 @@ function Item({ ticker }) {
 
   return (
     <li className={s.item}>
-      <span className={s.name}>{ticker.ticker}</span>
+      <span className={s.name}>{ticker.index}</span>
+      <span className={s.name}>{ticker.name}</span>
       <div className={s.box_price}>
         <span className={s.price}>{ticker.change}$</span>
         <span className={s.change} style={{ color: changes > 0 ? '#157533' : '#A11216' }}>

@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+.circle {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #aaa;
+  border-radius: 50%;
+  background-color: transparent;
+  font-size: 14px;
+}
+.img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+.text {
+  margin-left: 10px;
+  color: #aaa;
+  font-size: 16px;
+  font-weight: 500;
+}
+.btn {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  padding: 4px 6px;
+  color: #aaa;
+  outline: none;
+  border: 2px solid #aaa;
+  border-radius: 5px;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 500;
+}
+.btn:hover,
+.btn:focus {
+  cursor: pointer;
+  color: #498ef2;
+  border: 2px solid #498ef2;
+}
