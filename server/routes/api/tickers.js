@@ -27,19 +27,29 @@ router.patch("/:tickerId/favorite", authentication, async (req, res, next) => {
   try {
     const { _id } = req.user;
     const { tickerId } = req.params;
+    let tickerStatus = null;
 
     const tempTicker = await Ticker.findById(tickerId);
+
+    if (!tempTicker) {
+      return res.status(404).json({
+        message: "Not found",
+      });
+    }
+
     const favoriteUsers = tempTicker.favorite;
 
     if (favoriteUsers.includes(_id)) {
       // favoriteUsers.filter((el) => el !== _id);
       const indx = favoriteUsers.indexOf(_id);
       favoriteUsers.splice(indx, 1);
+      tickerStatus = false;
     } else {
       favoriteUsers.push(_id);
+      tickerStatus = true;
     }
 
-    const updateItem = await Ticker.findByIdAndUpdate(
+    await Ticker.findByIdAndUpdate(
       tickerId,
       { favorite: favoriteUsers },
       {
@@ -47,7 +57,7 @@ router.patch("/:tickerId/favorite", authentication, async (req, res, next) => {
       }
     );
 
-    res.json(updateItem);
+    res.json({ status: tickerStatus });
   } catch (error) {
     next(error);
   }

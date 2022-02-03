@@ -106,8 +106,9 @@ router.post("/login", async (req, res, next) => {
     res.json({
       token,
       user: {
+        name: user.name,
         email: user.email,
-        subscription: user.subscription,
+        avatar: user.avatarURL,
       },
     });
   } catch (error) {
@@ -126,8 +127,15 @@ router.get("/logout", authentication, async (req, res, next) => {
 });
 
 router.get("/current", authentication, async (req, res) => {
-  const { email, subscription } = req.user;
-  res.json({ user: { email, subscription } });
+  const { name, email, avatarURL } = req.user;
+  console.log(req.user);
+  res.json({
+    user: {
+      name,
+      email,
+      avatar: avatarURL,
+    },
+  });
 });
 
 router.get("/verify/:verificationToken", async (req, res, next) => {

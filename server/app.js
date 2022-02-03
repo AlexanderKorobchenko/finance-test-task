@@ -41,7 +41,6 @@ app.use("/api/tickers", tickersRouter);
 app.get("/favorite", authentication, async (req, res, next) => {
   try {
     const { _id } = req.user;
-    // console.log(_id);
     const data = await Ticker.find({});
     const filteredData = data.filter((el) => el.favorite.includes(_id));
     tickers.length = 0;
