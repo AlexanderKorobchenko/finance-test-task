@@ -1,7 +1,13 @@
 import { FiArrowUp, FiArrowDown } from 'react-icons/fi';
+import { useDispatch } from 'react-redux';
+
+import { tickersOperations } from '../../redux/tickers';
 import s from './Item.module.css';
 
 function Item({ ticker }) {
+  const dispatch = useDispatch();
+  const onFavoriteTicker = id => dispatch(tickersOperations.favoriteTicker(id));
+
   const changes = ticker.change - ticker.price;
   const percent = (Math.abs(changes) / ticker.price) * 100;
 
@@ -19,6 +25,9 @@ function Item({ ticker }) {
           {changes > 0 ? <FiArrowUp /> : <FiArrowDown />}
           {percent.toFixed(2)}%
         </span>
+        <button type="button" className={s.btn} onClick={() => onFavoriteTicker(ticker.id)}>
+          +/-
+        </button>
       </div>
     </li>
   );

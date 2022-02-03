@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
   favoriteTickerRequest,
-  favoriteTickerSuccess,
+  // favoriteTickerSuccess,
   favoriteTickerError,
   fetchTickersRequest,
   // fetchTickersSuccess,
@@ -28,12 +28,18 @@ const fetchFavoriteTickers = () => async dispatch => {
   }
 };
 
-// PATCH @ /favorite/:id (change favorite status)
+// PATCH @ /tickers/:id (change favorite status)
 const favoriteTicker = tickerId => async dispatch => {
   dispatch(favoriteTickerRequest());
   try {
-    await axios.patch(`/favorite/${tickerId}`);
-    dispatch(favoriteTickerSuccess(tickerId));
+    const { data } = await axios.patch(`api/tickers/${tickerId}`);
+    console.log(data.status);
+    // dispatch(favoriteTickerSuccess(status));
+    if (data.status) {
+      alert('Ticker was added');
+    } else {
+      alert('Ticker was deleted');
+    }
   } catch (error) {
     dispatch(favoriteTickerError(error.message));
   }

@@ -9,6 +9,7 @@ function ListHeader() {
         <span className={s.price}>Price</span>
         <span className={s.change}>Change on</span>
         <span className={s.change_percent}>Percent</span>
+        <span className={s.change_percent}>Elect</span>
       </div>
     </li>
   );

@@ -10,14 +10,20 @@
 .item:hover {
   background-color: #f0f0f0;
 }
-
 .box_price {
   width: 300px;
   display: flex;
   justify-content: space-between;
 }
-
 .change_percent {
   display: flex;
   align-items: center;
+}
+.btn {
+  padding: 4px;
+  border-radius: 50%;
+  border: 1px solid #404246;
+  color: #404246;
+  font-size: 13px;
+  cursor: pointer;
 }

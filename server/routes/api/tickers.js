@@ -23,7 +23,7 @@ router.delete(`/${ROUTE_DELETE_TICKER}`, async (req, res, next) => {
   }
 });
 
-router.patch("/:tickerId/favorite", authentication, async (req, res, next) => {
+router.patch("/:tickerId", authentication, async (req, res, next) => {
   try {
     const { _id } = req.user;
     const { tickerId } = req.params;

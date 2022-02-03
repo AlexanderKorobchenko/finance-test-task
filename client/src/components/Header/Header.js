@@ -17,7 +17,7 @@ function Header({ children }) {
         </NavLink>
         {isLoggedIn && (
           <NavLink to="/favorite" className={navData => (navData.isActive ? s.current : s.link)}>
-            <span className={s.text}>Favorite</span>
+            <span className={s.text}>Favorites</span>
           </NavLink>
         )}
       </div>
