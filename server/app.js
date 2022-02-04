@@ -5,8 +5,7 @@ const cors = require("cors");
 const io = require("socket.io");
 
 const trackTickers = require("./helpers/createTickers");
-const { tickersRouter } = require("./routes/api");
-const usersRouter = require("./routes/api/users");
+const { tickersRouter, usersRouter } = require("./routes/api");
 const { Ticker } = require("./model");
 const { authentication } = require("./middlewares");
 
