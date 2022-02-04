@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { authOperations } from '../redux/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, Navigate } from 'react-router-dom';
+
+import { authOperations, authSelectors } from '../redux/auth';
 import styles from './LoginView.module.css';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -28,13 +30,15 @@ function Login() {
       return;
     }
 
-    // console.log('submit');
     dispatch(authOperations.logIn({ email, password }));
 
     setEmail('');
     setPassword('');
   };
-  return (
+
+  return isLoggedIn ? (
+    <Navigate to="/" />
+  ) : (
     <div className={styles.container}>
       <h4 className={styles.title}>Please, enter your email and password</h4>
 

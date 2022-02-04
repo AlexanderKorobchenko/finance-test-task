@@ -6,7 +6,6 @@ import s from './Filter.module.css';
 const Filter = () => {
   const dispatch = useDispatch();
   const value = useSelector(tickersSelectors.getFilter);
-  // console.log('filter: ', value);
 
   return (
     <label className={s.label}>

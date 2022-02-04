@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = 'https://sleepy-forest-52108.herokuapp.com/';
 
 const token = {
   set(token) {
@@ -17,7 +17,6 @@ const token = {
 const register = createAsyncThunk('auth/register', async credentials => {
   try {
     const { data } = await axios.post('/api/users/register', credentials);
-    // token.set(data.token);
     return data;
   } catch (error) {
     console.warn(error);
@@ -48,9 +47,6 @@ const logOut = createAsyncThunk('auth/logout', async () => {
 });
 
 //  GET /users/current
-//  1. Забираем токен из стейта через getState()
-//  2. Если токена нет, выходим не выполняя никаких операций
-//  3. Если токен есть, добавляет его в HTTP-заголовок и выполянем операцию
 const fetchCurrentUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
   const state = thunkAPI.getState();
   const persistedToken = state.auth.token;

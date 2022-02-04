@@ -1,5 +1,5 @@
-import { FiArrowUp, FiArrowDown } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
+import { FiArrowUp, FiArrowDown } from 'react-icons/fi';
 
 import { tickersOperations } from '../../redux/tickers';
 import s from './Item.module.css';
